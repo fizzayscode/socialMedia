@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Oauth from "../components/Oauth";
 import share from "../assets/share.mp4";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
   signInFailure,
@@ -15,6 +15,7 @@ import toast from "react-hot-toast";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { error, loading } = useSelector((state) => state.user);
   const [details, setDetails] = useState({
     email: "",
     password: "",
@@ -29,14 +30,15 @@ const Login = () => {
         details
       );
       if (data.success === false) {
-        dispatch(signInFailure());
+        dispatch(signInFailure(data.message));
         toast.error(data.message, { id: "login" });
       }
-      dispatch(signInSuccess(data));
+      console.log(data.data.user);
+      dispatch(signInSuccess(data.data.user));
       toast.success("signed in successfully", { id: "login" });
       navigate("/");
     } catch (e) {
-      dispatch(signInFailure());
+      dispatch(signInFailure(e.response.data.message));
       toast.error(e.response.data.message, { id: "login" });
     }
   };
@@ -71,7 +73,10 @@ const Login = () => {
               onChange={handleChange}
               name="password"
             />
-            <button className="w-full bg-blue-600 text-white my-3 p-2 rounded font-semibold">
+            <button
+              disabled={loading}
+              className="w-full bg-blue-600 text-white my-3 p-2 rounded font-semibold hover:bg-blue-700"
+            >
               Sign Up
             </button>
             <Oauth />
