@@ -4,6 +4,7 @@ import share from "../assets/share.mp4";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Logo from "../assets/logo-white.png";
 import {
   signInFailure,
   signInStart,
@@ -60,6 +61,13 @@ const SignUp = () => {
         <div className="bg-blackOverlay absolute inset-0"></div>
         <div className="absolute">
           <form onSubmit={handleSubmit} className="flex flex-col items-center">
+            <div className="self-center pb-3 ">
+              <img
+                className="rounded-full w-[70px] object-cover text-white"
+                src={Logo}
+                alt=""
+              />
+            </div>
             <input
               className="outline-none py-2 px-2 border-2 rounded-lg my-1"
               type="text"
