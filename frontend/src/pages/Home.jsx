@@ -1,7 +1,7 @@
 import { HiMenu } from "react-icons/hi";
 import { AiFillCloseCircle } from "react-icons/ai";
 import Sidebar from "../components/Sidebar";
-import Pins from "../components/Pins";
+import Pins from "./Pins";
 import { useEffect, useRef, useState } from "react";
 import { Link, Route, Routes } from "react-router-dom";
 import Logo from "../assets/logo.png";
@@ -57,7 +57,7 @@ const Home = () => {
       <div className="pb-2 flex-1 h-screen overflow-y-scroll" ref={scrollRef}>
         <Routes>
           <Route path={`/profile:/${currentUser?.id}`} element={<Profile />} />
-          <Route path={`/*`} element={<Pins user={currentUser} />} />
+          <Route path={"/*"} element={<Pins user={currentUser} />} />
         </Routes>
       </div>
     </div>
