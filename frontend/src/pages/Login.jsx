@@ -12,6 +12,8 @@ import {
 import axios from "axios";
 import toast from "react-hot-toast";
 
+axios.defaults.withCredentials = true;
+
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -22,11 +24,12 @@ const Login = () => {
   });
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(details);
     try {
       dispatch(signInStart());
       toast.loading("signing in user", { id: "login" });
       const data = await axios.post(
-        "http://localhost:8080/api/v1/user/login",
+        "http://localhost:8080/api/v1/users/login",
         details
       );
       if (data.success === false) {
@@ -74,7 +77,7 @@ const Login = () => {
               name="password"
             />
             <button
-              disabled={loading}
+              // disabled={loading}
               className="w-full bg-blue-600 text-white my-3 p-2 rounded font-semibold hover:bg-blue-700"
             >
               Sign Up

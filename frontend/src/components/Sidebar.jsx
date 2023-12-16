@@ -61,7 +61,7 @@ const Sidebar = ({ user, setToggle }) => {
           >
             <RiHomeFill /> Home
           </NavLink>
-          <h3 className="mt-2 text-sm font-extrabold ">Discover Categories</h3>
+          <h3 className="mt-2 text-xs font-bold pl-3 ">Discover Categories</h3>
 
           {categories.slice(0, categories.length - 1).map((category, i) => {
             return (

@@ -12,6 +12,8 @@ import {
 import axios from "axios";
 import toast from "react-hot-toast";
 
+axios.defaults.withCredentials = true;
+
 const Oauth = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -25,7 +27,7 @@ const Oauth = () => {
       dispatch(signInStart());
       toast.loading("signing in user", { id: "google" });
       const data = await axios.post(
-        "http://localhost:8080/api/v1/user/google-auth",
+        "http://localhost:8080/api/v1/users/google-auth",
         {
           email,
           image,

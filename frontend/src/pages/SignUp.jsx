@@ -13,6 +13,8 @@ import {
 import axios from "axios";
 import toast from "react-hot-toast";
 
+axios.defaults.withCredentials = true;
+
 const SignUp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -27,7 +29,7 @@ const SignUp = () => {
       dispatch(signInStart());
       toast.loading("signing up user", { id: "signup" });
       const data = await axios.post(
-        "http://localhost:8080/api/v1/user/register",
+        "http://localhost:8080/api/v1/users/register",
         details
       );
       if (data.success === false) {

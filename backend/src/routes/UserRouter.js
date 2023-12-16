@@ -12,4 +12,4 @@ userRouter.route("/register").post(signUpUser);
 userRouter.route("/login").post(loginUser);
 userRouter.route("/google-auth").post(googleLogin);
 
-module.exports = { userRouter };
+module.exports = userRouter;

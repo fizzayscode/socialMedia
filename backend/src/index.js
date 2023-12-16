@@ -1,10 +1,13 @@
 const express = require("express");
 const errorHandlerMiddleWare = require("./middlewares/errorHandler");
-const { userRouter } = require("./routes/UserRouter");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+const appRouter = require("./routes/index");
+require("dotenv").config();
 
 const app = express();
+app.use(express.json());
+app.use(cookieParser(process.env.COOKIE_SECRET));
 
 const allowedOrigin = ["http://localhost:5173"];
 const corsOptions = {
@@ -20,10 +23,7 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
-app.use(express.json());
-app.use(cookieParser(process.env.COOKIE_SECRET));
-
-app.use("/api/v1/user", userRouter);
+app.use("/api/v1", appRouter);
 
 app.use(errorHandlerMiddleWare);
 

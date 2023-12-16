@@ -31,8 +31,8 @@ model Pin {
   destination String
   category    String
   image       String 
-  userId      String   @map("user_id") @db.Uuid
-  postedBy    User     @relation(fields: [userId], references: [id])
+  posted      String   @map("user_id") @db.Uuid
+  postedBy    User     @relation(fields: [posted], references: [id])
   saves       Save[]
   comments    Comment[]    // Assuming this is a numeric identifier for the postedBy user
   createdAt   DateTime @default(now())

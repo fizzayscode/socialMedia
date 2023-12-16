@@ -115,36 +115,41 @@ const googleLogin = async (req, res, next) => {
 
 const loginUser = async (req, res, next) => {
   const { email, password } = req.body;
-  if (!email || !password || password.trim() == "" || email.trim == "") {
-    next(errorHandler(404, "you must provide email or password"));
-  }
 
-  const user = await prisma.user.findUnique({ where: { email: email } });
-  if (!user) {
-    return next(
-      errorHandler(404, "wrong email or password please check and try again")
-    );
-  }
+  try {
+    if (!email || !password || password.trim() == "" || email.trim == "") {
+      next(errorHandler(404, "you must provide email or password"));
+    }
 
-  const correctPassword = await checkPassword(password, user.password);
+    const user = await prisma.user.findUnique({ where: { email: email } });
+    if (!user) {
+      return next(
+        errorHandler(404, "wrong email or password please check and try again")
+      );
+    }
 
-  if (correctPassword) {
-    const token = generateSignature({
-      id: user.id,
-      username: user.username,
-      email: user.email,
-    });
-    await clearAndMakeCookie(res, process.env.COOKIE_NAME, token);
-    const { password: password, ...rest } = user;
+    const correctPassword = await checkPassword(password, user.password);
 
-    return res.status(200).json({
-      message: "LOGGED IN SUCCESSFULLY",
-      user: rest,
-    });
-  } else {
-    next(
-      errorHandler(404, "wrong email or password please check and try again")
-    );
+    if (correctPassword) {
+      const token = generateSignature({
+        id: user.id,
+        username: user.username,
+        email: user.email,
+      });
+
+      const { password: password, ...rest } = user;
+      await clearAndMakeCookie(res, process.env.COOKIE_NAME, token);
+      return res.status(200).json({
+        message: "LOGGED IN SUCCESSFULLY",
+        user: rest,
+      });
+    } else {
+      next(
+        errorHandler(404, "wrong email or password please check and try again")
+      );
+    }
+  } catch (e) {
+    next(e);
   }
 };
 
