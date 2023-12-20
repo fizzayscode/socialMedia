@@ -11,7 +11,7 @@ const PinRouter = express.Router();
 
 // userRouter.route("/login").post(loginUser);
 PinRouter.route("/").get(verifyToken, getAllPins).post(verifyToken, createPin);
-PinRouter.route("/ByCategory").get(verifyToken, getPinsByCategory);
+PinRouter.route("/ByCategory/:categoryId").get(verifyToken, getPinsByCategory);
 PinRouter.route("/:id").get(verifyToken, getPin);
 
 module.exports = PinRouter;

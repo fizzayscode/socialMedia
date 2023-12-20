@@ -141,7 +141,7 @@ const CreatePin = () => {
               >
                 <option value="coding">Coding</option>
                 <option value="fashion">Fashion</option>
-                <option value="Travel">Travel</option>
+                <option value="travel">Travel</option>
                 <option value="health_and_fitness">Health and Fitness</option>
                 <option value="wallpaper">Wallpapers</option>
                 <option value="Photography">Photography</option>

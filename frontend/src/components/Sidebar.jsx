@@ -8,13 +8,13 @@ import { IoMdExit } from "react-icons/io";
 
 const categories = [
   {
-    name: "animals",
+    name: "animal",
   },
   {
-    name: "wallpapers",
+    name: "wallpaper",
   },
   {
-    name: "photogrpahy",
+    name: "photography",
   },
   {
     name: "coding",
@@ -23,7 +23,16 @@ const categories = [
     name: "anime",
   },
   {
-    name: "anime",
+    name: "fashion",
+  },
+  {
+    name: "travel",
+  },
+  {
+    name: "health and fitness",
+  },
+  {
+    name: "others",
   },
 ];
 
@@ -67,7 +76,11 @@ const Sidebar = ({ user, setToggle }) => {
             return (
               <NavLink
                 key={i}
-                to={`category/${category.name}`}
+                to={
+                  category.name.includes(" ")
+                    ? `category/${category.name.replace(/ /g, "_")}`
+                    : `category/${category.name}`
+                }
                 className={({ isActive }) =>
                   isActive ? isActiveStyle : isNotActiveStyle
                 }
